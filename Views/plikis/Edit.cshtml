@@ -1,4 +1,4 @@
-﻿@model WebApplication19.Models.zdjecia
+﻿@model WebApplication19.Models.pliki
 
 @{
     ViewData["Title"] = "Edit";
@@ -6,31 +6,31 @@
 
 <h1>Edit</h1>
 
-<h4>zdjecia</h4>
+<h4>pliki</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id_zjecia" />
+            <input type="hidden" asp-for="id_pliki" />
             <div class="form-group">
                 <label asp-for="nazwa" class="control-label"></label>
                 <input asp-for="nazwa" class="form-control" />
                 <span asp-validation-for="nazwa" class="text-danger"></span>
             </div>
             @*<div class="form-group">
-                <label asp-for="Id_użytkownicy" class="control-label"></label>
-                <input asp-for="Id_użytkownicy" class="form-control" />
-                <span asp-validation-for="Id_użytkownicy" class="text-danger"></span>
+                <label asp-for="id_uzytkownicy" class="control-label"></label>
+                <input asp-for="id_uzytkownicy" class="form-control" />
+                <span asp-validation-for="id_uzytkownicy" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="link_bezposredni" class="control-label"></label>
-                <input asp-for="link_bezposredni" class="form-control" />
-                <span asp-validation-for="link_bezposredni" class="text-danger"></span>
-            </div>*@
+                <label asp-for="link_bezpośredni" class="control-label"></label>
+                <input asp-for="link_bezpośredni" class="form-control" />
+                <span asp-validation-for="link_bezpośredni" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+            </div>*@
         </form>
     </div>
 </div>

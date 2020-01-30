@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
-@model IEnumerable<WebApplication19.Models.zdjecia>
+@model IEnumerable<WebApplication19.Models.filmy>
 
 @{
     ViewData["Title"] = "Portal - zdjęcia";
@@ -24,8 +24,8 @@
                 @if (1 == 1)//jesli uzytkownik zalogowany=uzytkownik ktory utworzyl post
                 {
                     <div style="text-align: right;">
-                        <a asp-action="Edit" asp-route-id="@item.Id_zjecia" class="btn btn-success">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id_zjecia" class="btn btn-danger">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@item.id_filmy" class="btn btn-success">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.id_filmy" class="btn btn-danger">Delete</a>
                     </div>
                 }
 
