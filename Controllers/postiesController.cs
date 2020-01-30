@@ -52,8 +52,8 @@ namespace WebApplication19.Controllers
                 default:
                     posts = posts.OrderByDescending(p => p.data_utworzenia); break;
             }
-            
-            ViewBag.currentUser = _context.uzytkownicies.FirstOrDefault(x => (x.login == User.Identity.Name));
+            ICollection<uzytkownicy> allUsers = _context.uzytkownicies.ToList();
+            ViewBag.allUsers = allUsers;
             return View(posts.ToList());
         }
 

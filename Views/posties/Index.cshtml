@@ -35,10 +35,12 @@
     @foreach (var item in Model)
     {
         posty p = item;
+        ICollection<WebApplication19.Models.uzytkownicy> allUsers = ViewBag.allUsers;
+        var postCreator = allUsers.FirstOrDefault(x => (x.id == p.id_uzytkownika));
 
         DateTime data = p.getDate(item.data_utworzenia);
         <table class="table" border="1">
-            <tr><td><b>Dodał(a):</b> @ViewBag.currentUser.imie @ViewBag.currentUser.nazwisko </td><td style="text-align: right;"><b>Dodano:</b> @data</td></tr>
+            <tr><td><b>Dodał(a):</b> @postCreator.imie @postCreator.nazwisko </td><td style="text-align: right;"><b>Dodano:</b> @data</td></tr>
             <tr>
                 <td colspan="2">
                     <b>Treść posta:</b>  @Html.DisplayFor(modelItem => item.tresc)
@@ -60,5 +62,4 @@ else
         <h1 class="display-4">Witaj na Portalu!</h1>
         <p><a href="/Identity/Account/Login">Zaloguj się</a> lub jeśli nie masz jeszcze konta <a href="/Identity/Account/Register">zarejestruj się</a>!</p>
     </div>
-
 }
