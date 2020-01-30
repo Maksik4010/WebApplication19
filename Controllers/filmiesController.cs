@@ -77,7 +77,7 @@ namespace WebApplication19.Controllers
             }
 
             string extension = Path.GetExtension(file.FileName);
-            if ((extension == ".jpg") || (extension == ".png"))
+            if ((extension == ".mp4") || (extension == ".avi"))
             {
 
                 var filename = Path.Combine(he.WebRootPath, Path.GetFileName(file.FileName));

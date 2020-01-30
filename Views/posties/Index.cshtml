@@ -38,7 +38,7 @@
 
         DateTime data = p.getDate(item.data_utworzenia);
         <table class="table" border="1">
-            <tr><td><b>Dodał:</b> @User.Identity.Name </td><td style="text-align: right;"><b>Dodano:</b> @data</td></tr>
+            <tr><td><b>Dodał:</b> @ViewBag.uzyt </td><td style="text-align: right;"><b>Dodano:</b> @data</td></tr>
             <tr>
                 <td colspan="2">
                     <b>Treść posta:</b>  @Html.DisplayFor(modelItem => item.tresc)

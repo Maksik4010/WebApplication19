@@ -68,12 +68,12 @@ namespace WebApplication19.Controllers
             if (file == null)
             {
                 ViewBag.String = "Brak wybranego pliku!";
-                return View("~/Views/Images/Erroe.cshtml");
+                return View("~/Views/zdjecias/Error.cshtml");
             }
             if ((file.Length / 1048576.0) > 5) //rozmiar wiekszy niż 5 mb
             {
                 ViewBag.String = "Plik za duży!";
-                return View("~/Views/Images/Erroe.cshtml");
+                return View("~/Views/zdjecias/Error.cshtml");
             }
 
             string extension = Path.GetExtension(file.FileName);
@@ -106,7 +106,7 @@ namespace WebApplication19.Controllers
 
             }
             ViewBag.String = "Błędny typ pliku!";
-            return View("~/Views/Images/Erroe.cshtml");
+            return View("~/Views/zdjecias/Error.cshtml");
         }
 
         // GET: zdjecias/Edit/5

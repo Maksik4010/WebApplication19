@@ -1,0 +1,48 @@
+﻿@model WebApplication19.Models.wiadomosci
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>wiadomosci</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id_konwersacji)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id_konwersacji)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.id_uzytkownicy)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.id_uzytkownicy)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.tresc)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.tresc)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.data_utworzenia)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.data_utworzenia)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.czy_usunieta)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.czy_usunieta)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id_wiadomosci">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
