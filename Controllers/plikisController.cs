@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,10 +18,14 @@ namespace WebApplication19.Controllers
     public class plikisController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IHostingEnvironment he;
 
-        public plikisController(ApplicationDbContext context)
+        public plikisController(ApplicationDbContext context, UserManager<IdentityUser> userManager, IHostingEnvironment e)
         {
             _context = context;
+            _userManager = userManager;
+            he = e;
         }
 
         // GET: plikis
@@ -55,17 +63,41 @@ namespace WebApplication19.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id_pliki,nazwa,id_uzytkownicy,link_bezpośredni")] pliki pliki)
+        public async Task<IActionResult> Create([Bind("id_pliki,nazwa,id_uzytkownicy,link_bezpośredni")] pliki pliki, IFormFile file)
         {
-            if (ModelState.IsValid)
-            {
-                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                pliki.id_uzytkownicy = userId.ToString();
-                _context.Add(pliki);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(pliki);
+          
+                if (file == null)
+                {
+                    ViewBag.String = "Brak wybranego pliku!";
+                    return View("~/Views/zdjecias/Error.cshtml");
+                }
+                if ((file.Length / 1048576.0) > 5) //rozmiar wiekszy niż 5 mb
+                {
+                    ViewBag.String = "Plik za duży!";
+                    return View("~/Views/zdjecias/Error.cshtml");
+                }
+                var filename = Path.Combine(he.WebRootPath, Path.GetFileName(file.FileName));
+
+                using (var stream = new FileStream(filename, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+                if (ModelState.IsValid)
+                {
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    pliki.id_uzytkownicy = userId.ToString();
+                    pliki.link_bezpośredni = "/" + file.FileName;
+                    _context.Add(pliki);
+
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction("Index", "posties");
+                }
+
+                return View(pliki);
+
+
+            
         }
 
         // GET: plikis/Edit/5

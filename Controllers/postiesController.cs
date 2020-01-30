@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,16 +14,23 @@ namespace WebApplication19.Controllers
 {
     public class postiesController : Controller
     {
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly ApplicationDbContext _context;
 
-        public postiesController(ApplicationDbContext context)
+        public postiesController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: posties
         public async Task<IActionResult> Index(string searchString, string sortOrder)
         {
+            var userId = _userManager.GetUserId(HttpContext.User);
+            ICollection<uzytkownicy> uzyt= _context.uzytkownicies.Where(x => (x.id == userId)).ToList();
+           // ViewBag.uzyt = _context.uzytkownicies.Find.im
+            
+
             ViewBag.sortContent = (String.IsNullOrEmpty(sortOrder) || sortOrder == "content_desc") ? "content_asc" : "content_desc";
             ViewBag.sortDate = (String.IsNullOrEmpty(sortOrder) || sortOrder == "date_desc") ? "date_asc" : "date_desc";
             var posts = from p in _context.posties select p;

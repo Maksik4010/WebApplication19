@@ -1,0 +1,50 @@
+﻿@model WebApplication19.Models.wiadomosci
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>wiadomosci</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id_konwersacji" class="control-label"></label>
+                <input asp-for="Id_konwersacji" class="form-control" />
+                <span asp-validation-for="Id_konwersacji" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="id_uzytkownicy" class="control-label"></label>
+                <input asp-for="id_uzytkownicy" class="form-control" />
+                <span asp-validation-for="id_uzytkownicy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tresc" class="control-label"></label>
+                <input asp-for="tresc" class="form-control" />
+                <span asp-validation-for="tresc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="data_utworzenia" class="control-label"></label>
+                <input asp-for="data_utworzenia" class="form-control" />
+                <span asp-validation-for="data_utworzenia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="czy_usunieta" class="control-label"></label>
+                <input asp-for="czy_usunieta" class="form-control" />
+                <span asp-validation-for="czy_usunieta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
