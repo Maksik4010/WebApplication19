@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,6 +23,8 @@ namespace WebApplication19.Controllers
         // GET: wiadomoscis
         public async Task<IActionResult> Index()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            ViewBag.uzytkownik = userId;
             return View(await _context.wiadomoscis.ToListAsync());
         }
 
@@ -58,6 +61,9 @@ namespace WebApplication19.Controllers
         {
             if (ModelState.IsValid)
             {
+                wiadomosci.data_utworzenia = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                wiadomosci.id_uzytkownicy = userId.ToString();
                 _context.Add(wiadomosci);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -14,9 +14,17 @@ namespace WebApplication19.Models
         public uzytkownicy uzytkownicy { get; set; }
         public string nazwa { get; set; }
         public string kategoria { get; set; }
-        public int data_zalozenia { get; set; }
+        public long data_zalozenia { get; set; }
         public int liczba_polubien { get; set; }
 
         public ICollection<polubienia_fanpage> polubienia_Fanpages { get; set; }
+
+        public DateTime getDate(double unixTimeStamp)
+        {
+            // Unix timestamp is seconds past epoch
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+            return dtDateTime;
+        }
     }
 }

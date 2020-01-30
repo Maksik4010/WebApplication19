@@ -42,7 +42,7 @@
             <tr>
                 <td colspan="2">
                     <b>Treść posta:</b>  @Html.DisplayFor(modelItem => item.tresc)
-                    @if (1 == 1)//jesli uzytkownik zalogowany=uzytkownik ktory utworzyl post
+                    @if (item.id_uzytkownika == ViewBag.uzytkownik)//jesli uzytkownik zalogowany=uzytkownik ktory utworzyl post
                     {
                         <div style="text-align: right;">
                             @Html.ActionLink("Edytuj", "Edit", new { id = item.id }, new { @class = "btn btn-success" })
