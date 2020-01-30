@@ -23,8 +23,6 @@
     <br />
     <div style="clear: left;">
         @Html.Raw("Sortuj wg: ")
-        @Html.ActionLink("Imię", "Index", new { sortOrder = ViewBag.sortName }, new { @class = "btn btn-primary" })
-        @Html.ActionLink("Nazwisko", "Index", new { sortOrder = ViewBag.sortSurname }, new { @class = "btn btn-primary" })
         @Html.ActionLink("Data utworzenia", "Index", new { sortOrder = ViewBag.sortDate }, new { @class = "btn btn-primary" })
         @Html.ActionLink("Treść posta", "Index", new { sortOrder = ViewBag.sortContent }, new { @class = "btn btn-primary" })
     </div>
