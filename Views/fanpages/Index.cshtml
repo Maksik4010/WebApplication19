@@ -1,59 +1,63 @@
-﻿@model IEnumerable<WebApplication19.Models.fanpage>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@model IEnumerable<WebApplication19.Models.fanpage>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Portal - Strona główna";
 }
 
-<h1>Index</h1>
+@if (SignInManager.IsSignedIn(User))
+{
+    <h1>Twoej fanpage</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.id_uzytkownicy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.nazwa)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.kategoria)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.data_zalozenia)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.liczba_polubien)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.id_uzytkownicy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nazwa)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.kategoria)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.data_zalozenia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.liczba_polubien)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.id_fanpage">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id_fanpage">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id_fanpage">Delete</a>
-            </td>
-        </tr>
+    <div style="float:left;"><a asp-controller="fanpages" asp-action="Create" class="btn btn-success">Utwórz fanpage</a></div>
+    @*<div style="float:right;">
+        @using (Html.BeginForm())
+        {
+            @Html.TextBox("searchString")
+            <input type="submit" class="btn btn-primary" value="Szukaj" />
+        }
+    </div>
+    <br />
+    <br />
+    <div style="clear: left;">
+        @Html.Raw("Sortuj wg: ")
+        @Html.ActionLink("Data utworzenia", "Index", new { sortOrder = ViewBag.sortDate }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Treść posta", "Index", new { sortOrder = ViewBag.sortContent }, new { @class = "btn btn-primary" })
+    </div>*@
+
+    <br />
+    <br />
+
+    @foreach (var item in Model)
+    {
+        fanpage p = item;
+        ICollection<WebApplication19.Models.uzytkownicy> allUsers = ViewBag.allUsers;
+        var postCreator = allUsers.FirstOrDefault(x => (x.id == p.id_uzytkownicy));
+
+        DateTime data = p.getDate(item.data_zalozenia);
+        <table class="table" border="1">
+            <tr><td><b>Dodał(a):</b> @postCreator.imie @postCreator.nazwisko </td><td style="text-align: right;"><b>Dodano:</b> @data</td></tr>
+            <tr>
+                <td colspan="2">
+                    <b>Treść posta:</b>  @Html.DisplayFor(modelItem => item.nazwa)@Html.DisplayFor(modelItem => item.kategoria)
+                    @if (item.id_uzytkownicy == ViewBag.uzytkownik)//jesli uzytkownik zalogowany=uzytkownik ktory utworzyl post
+                    {
+                        <div style="text-align: right;">
+                            @Html.ActionLink("Edytuj", "Edit", new { id = item.id_fanpage }, new { @class = "btn btn-success" })
+                            @Html.ActionLink("Usuń", "Delete", new { id = item.id_fanpage }, new { @class = "btn btn-danger" })
+                        </div>
+                    }
+                </td>
+            </tr>
+        </table>
+    }
 }
-    </tbody>
-</table>
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">Witaj na Portalu!</h1>
+        <p><a href="/Identity/Account/Login">Zaloguj się</a> lub jeśli nie masz jeszcze konta <a href="/Identity/Account/Register">zarejestruj się</a>!</p>
+    </div>
+}

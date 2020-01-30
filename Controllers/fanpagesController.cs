@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,16 +13,23 @@ namespace WebApplication19.Controllers
 {
     public class fanpagesController : Controller
     {
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly ApplicationDbContext _context;
 
-        public fanpagesController(ApplicationDbContext context)
+        public fanpagesController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: fanpages
         public async Task<IActionResult> Index()
         {
+            var userId = _userManager.GetUserId(HttpContext.User);
+            ViewBag.uzytkownik = userId;
+
+            ICollection<uzytkownicy> allUsers = _context.uzytkownicies.ToList();
+            ViewBag.allUsers = allUsers;
             return View(await _context.fanpages.ToListAsync());
         }
 
@@ -58,6 +66,8 @@ namespace WebApplication19.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userId = _userManager.GetUserId(HttpContext.User);
+                fanpage.id_uzytkownicy = userId;
                 _context.Add(fanpage);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
