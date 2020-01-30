@@ -92,6 +92,7 @@ namespace WebApplication19.Controllers
             {
                 posty.typ = 0; //post publiczny
                 //posty.id_uzytkownika =  TODO
+                //posty.id_uzytkownika = User.
                 posty.data_utworzenia = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
                 posty.status_komentarzy = 1; //wlaczone
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
