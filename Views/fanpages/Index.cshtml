@@ -1,0 +1,59 @@
+﻿@model IEnumerable<WebApplication19.Models.fanpage>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id_uzytkownicy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nazwa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.kategoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data_zalozenia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.liczba_polubien)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id_uzytkownicy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nazwa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.kategoria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.data_zalozenia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.liczba_polubien)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.id_fanpage">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.id_fanpage">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.id_fanpage">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
