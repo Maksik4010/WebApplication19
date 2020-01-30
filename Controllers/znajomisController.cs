@@ -28,6 +28,8 @@ namespace WebApplication19.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewBag.uzytkownik = userId;
+            ICollection<uzytkownicy> allUsers = _context.uzytkownicies.ToList();
+            ViewBag.allUsers = allUsers;
             return View(await _context.znajomis.ToListAsync());
         }
 

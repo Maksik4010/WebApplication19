@@ -19,16 +19,18 @@
         @if (item.Id_uzytkownicy == ViewBag.uzytkownik)
         {
             znajomi p = item;
+            ICollection<WebApplication19.Models.uzytkownicy> allUsers = ViewBag.allUsers;
+            var friend = allUsers.FirstOrDefault(x => (x.id == p.Id_znajomwgo));
 
             DateTime data = p.getDate(item.poczatek_znajomosci);
             <table class="table" border="1">
-                <tr><td> </td><td style="text-align: right;"><b>Dodano:</b> @data</td></tr>
+                <tr><td>@friend.imie @friend.nazwisko</td><td style="text-align: right;"><b>Dodano:</b> @data</td></tr>
                 <tr>
                     <td colspan="2">
 
 
                         <div style="text-align: right;">
-                            @Html.ActionLink("Usuń znajmego", "Delete", new { id = item.Id_uzytkownicy }, new { @class = "btn btn-danger" })
+                            @Html.ActionLink("Usuń znajomego", "Delete", new { id = item.Id_znajomi }, new { @class = "btn btn-danger" })
                         </div>
 
                     </td>

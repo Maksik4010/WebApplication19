@@ -12,6 +12,7 @@ namespace WebApplication19.Models
         public int Id_znajomi { get; set; }
         public String Id_uzytkownicy { get; set; }
         public uzytkownicy uzytkownicy {get; set;}
+        [Display(Name = "Imię i nazwisko znajomego: ")]
         public String Id_znajomwgo { get; set; }
         public long poczatek_znajomosci { get; set; }
 
