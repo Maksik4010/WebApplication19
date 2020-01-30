@@ -1,0 +1,36 @@
+﻿@model WebApplication19.Models.pliki
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>pliki</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.nazwa)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.nazwa)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.id_uzytkownicy)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.id_uzytkownicy)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.link_bezpośredni)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.link_bezpośredni)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.id_pliki">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

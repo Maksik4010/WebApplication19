@@ -15,26 +15,26 @@ using WebApplication19.Models;
 
 namespace WebApplication19.Controllers
 {
-    public class zdjeciasController : Controller
+    public class filmiesController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IHostingEnvironment he;
 
-        public zdjeciasController(ApplicationDbContext context, UserManager<IdentityUser> userManager, IHostingEnvironment e)
+        public filmiesController(ApplicationDbContext context, UserManager<IdentityUser> userManager, IHostingEnvironment e)
         {
             _context = context;
             _userManager = userManager;
             he = e;
         }
 
-        // GET: zdjecias
+        // GET: filmies
         public async Task<IActionResult> Index()
         {
-            return View(await _context.zdjecias.ToListAsync());
+            return View(await _context.filmies.ToListAsync());
         }
 
-        // GET: zdjecias/Details/5
+        // GET: filmies/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,28 +42,28 @@ namespace WebApplication19.Controllers
                 return NotFound();
             }
 
-            var zdjecia = await _context.zdjecias
-                .FirstOrDefaultAsync(m => m.Id_zjecia == id);
-            if (zdjecia == null)
+            var filmy = await _context.filmies
+                .FirstOrDefaultAsync(m => m.id_filmy == id);
+            if (filmy == null)
             {
                 return NotFound();
             }
 
-            return View(zdjecia);
+            return View(filmy);
         }
 
-        // GET: zdjecias/Create
+        // GET: filmies/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: zdjecias/Create
+        // POST: filmies/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id_zjecia,nazwa,Id_użytkownicy,link_bezposredni")] zdjecia zdjecia, IFormFile file)
+        public async Task<IActionResult> Create([Bind("id_filmy,nazwa,id_uzytkownicy,link_bezposredni")] filmy filmy, IFormFile file)
         {
             if (file == null)
             {
@@ -89,27 +89,27 @@ namespace WebApplication19.Controllers
 
 
 
-               
+
                 if (ModelState.IsValid)
                 {
                     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                    zdjecia.Id_użytkownicy = userId.ToString();
-                    zdjecia.link_bezposredni = "/" + file.FileName;
-                    _context.Add(zdjecia);
+                    filmy.id_uzytkownicy = userId.ToString();
+                    filmy.link_bezposredni = "/" + file.FileName;
+                    _context.Add(filmy);
 
                     await _context.SaveChangesAsync();
 
                     return RedirectToAction("Index", "posties");
                 }
 
-                return View(zdjecia);
+                return View(filmy);
 
             }
             ViewBag.String = "Błędny typ pliku!";
             return View("~/Views/Images/Erroe.cshtml");
         }
 
-        // GET: zdjecias/Edit/5
+        // GET: filmies/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -117,22 +117,22 @@ namespace WebApplication19.Controllers
                 return NotFound();
             }
 
-            var zdjecia = await _context.zdjecias.FindAsync(id);
-            if (zdjecia == null)
+            var filmy = await _context.filmies.FindAsync(id);
+            if (filmy == null)
             {
                 return NotFound();
             }
-            return View(zdjecia);
+            return View(filmy);
         }
 
-        // POST: zdjecias/Edit/5
+        // POST: filmies/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id_zjecia,nazwa,Id_użytkownicy,link_bezposredni")] zdjecia zdjecia)
+        public async Task<IActionResult> Edit(int id, [Bind("id_filmy,nazwa,id_uzytkownicy,link_bezposredni")] filmy filmy)
         {
-            if (id != zdjecia.Id_zjecia)
+            if (id != filmy.id_filmy)
             {
                 return NotFound();
             }
@@ -141,12 +141,12 @@ namespace WebApplication19.Controllers
             {
                 try
                 {
-                    _context.Update(zdjecia);
+                    _context.Update(filmy);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!zdjeciaExists(zdjecia.Id_zjecia))
+                    if (!filmyExists(filmy.id_filmy))
                     {
                         return NotFound();
                     }
@@ -157,10 +157,10 @@ namespace WebApplication19.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(zdjecia);
+            return View(filmy);
         }
 
-        // GET: zdjecias/Delete/5
+        // GET: filmies/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -168,30 +168,30 @@ namespace WebApplication19.Controllers
                 return NotFound();
             }
 
-            var zdjecia = await _context.zdjecias
-                .FirstOrDefaultAsync(m => m.Id_zjecia == id);
-            if (zdjecia == null)
+            var filmy = await _context.filmies
+                .FirstOrDefaultAsync(m => m.id_filmy == id);
+            if (filmy == null)
             {
                 return NotFound();
             }
 
-            return View(zdjecia);
+            return View(filmy);
         }
 
-        // POST: zdjecias/Delete/5
+        // POST: filmies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var zdjecia = await _context.zdjecias.FindAsync(id);
-            _context.zdjecias.Remove(zdjecia);
+            var filmy = await _context.filmies.FindAsync(id);
+            _context.filmies.Remove(filmy);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool zdjeciaExists(int id)
+        private bool filmyExists(int id)
         {
-            return _context.zdjecias.Any(e => e.Id_zjecia == id);
+            return _context.filmies.Any(e => e.id_filmy == id);
         }
     }
 }

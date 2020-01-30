@@ -1,11 +1,11 @@
 ﻿
-@model WebApplication19.Models.zdjecia
+@model WebApplication19.Models.pliki
 
 <h2>Basic File Upload</h2>
 @using (Html.BeginForm("Create",
-                  "Images",
-                  FormMethod.Post,
-                  new { enctype = "multipart/form-data" }))
+                 "Images",
+                 FormMethod.Post,
+                 new { enctype = "multipart/form-data" }))
 {
     <label for="file">Upload Image:</label>
     <input type="file" name="file" id="file" />

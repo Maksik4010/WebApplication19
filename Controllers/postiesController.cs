@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -86,6 +87,8 @@ namespace WebApplication19.Controllers
                 //posty.id_uzytkownika = User.
                 posty.data_utworzenia = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
                 posty.status_komentarzy = 1; //wlaczone
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                posty.id_uzytkownika = userId.ToString();
                 _context.Add(posty);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
