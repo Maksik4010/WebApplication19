@@ -1,0 +1,89 @@
+﻿@model IEnumerable<WebApplication19.Models.uzytkownicy>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.login)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.haslo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.imie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nazwisko)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ksywka)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.kraj)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data_zalozenia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ostatnie_logowanie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ip_ostatniego_logowania)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.liczba_znajomych)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.login)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.haslo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.imie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nazwisko)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ksywka)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.kraj)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.data_zalozenia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ostatnie_logowanie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ip_ostatniego_logowania)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.liczba_znajomych)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

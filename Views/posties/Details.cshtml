@@ -1,0 +1,60 @@
+﻿@model WebApplication19.Models.posty
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>posty</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.typ)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.typ)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.id_uzytkownika)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.id_uzytkownika)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.tresc)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.tresc)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.data_utworzenia)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.data_utworzenia)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.liczba_like)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.liczba_like)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.liczba_dislike)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.liczba_dislike)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.status_komentarzy)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.status_komentarzy)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

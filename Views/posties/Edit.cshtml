@@ -1,0 +1,36 @@
+﻿@model WebApplication19.Models.posty
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>posty</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="id" />
+            <input type="hidden" asp-for="typ" />
+            <input type="hidden" asp-for="id_uzytkownika" />
+            <input type="hidden" asp-for="liczba_like" />
+            <input type="hidden" asp-for="liczba_dislike" />
+            <input type="hidden" asp-for="status_komentarzy" />
+            <div class="form-group">
+                <label asp-for="tresc" class="control-label"></label>
+                <input asp-for="tresc" class="form-control" />
+                <span asp-validation-for="tresc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <a asp-action="Index" class="btn btn-primary">Powrót</a>
+                <input type="submit" value="Zapisz" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

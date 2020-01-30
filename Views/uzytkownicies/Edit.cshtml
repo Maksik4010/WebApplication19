@@ -1,0 +1,79 @@
+﻿@model WebApplication19.Models.uzytkownicy
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>uzytkownicy</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="id" />
+            <div class="form-group">
+                <label asp-for="login" class="control-label"></label>
+                <input asp-for="login" class="form-control" />
+                <span asp-validation-for="login" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="haslo" class="control-label"></label>
+                <input asp-for="haslo" class="form-control" />
+                <span asp-validation-for="haslo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="imie" class="control-label"></label>
+                <input asp-for="imie" class="form-control" />
+                <span asp-validation-for="imie" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="nazwisko" class="control-label"></label>
+                <input asp-for="nazwisko" class="form-control" />
+                <span asp-validation-for="nazwisko" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ksywka" class="control-label"></label>
+                <input asp-for="ksywka" class="form-control" />
+                <span asp-validation-for="ksywka" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="kraj" class="control-label"></label>
+                <input asp-for="kraj" class="form-control" />
+                <span asp-validation-for="kraj" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="data_zalozenia" class="control-label"></label>
+                <input asp-for="data_zalozenia" class="form-control" />
+                <span asp-validation-for="data_zalozenia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ostatnie_logowanie" class="control-label"></label>
+                <input asp-for="ostatnie_logowanie" class="form-control" />
+                <span asp-validation-for="ostatnie_logowanie" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ip_ostatniego_logowania" class="control-label"></label>
+                <input asp-for="ip_ostatniego_logowania" class="form-control" />
+                <span asp-validation-for="ip_ostatniego_logowania" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="liczba_znajomych" class="control-label"></label>
+                <input asp-for="liczba_znajomych" class="form-control" />
+                <span asp-validation-for="liczba_znajomych" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

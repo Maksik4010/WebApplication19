@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@model IEnumerable<WebApplication19.Models.posty>
+
+@{
+    ViewData["Title"] = "Portal - Strona główna";
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <h1>Posty Twoich znajomych</h1>
+
+    <div style="float:left;"><a asp-controller="posties" asp-action="Create" class="btn btn-success">Utwórz post</a></div>
+    <div style="float:right;">
+        @using (Html.BeginForm())
+        {
+            @Html.TextBox("searchString")
+            <input type="submit" class="btn btn-primary" value="Szukaj" />
+        }
+    </div>
+    <br />
+    <br />
+    <div style="clear: left;">
+        @Html.Raw("Sortuj wg: ")
+        @Html.ActionLink("Imię", "Index", new { sortOrder = ViewBag.sortName }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Nazwisko", "Index", new { sortOrder = ViewBag.sortSurname }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Data utworzenia", "Index", new { sortOrder = ViewBag.sortDate }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Treść posta", "Index", new { sortOrder = ViewBag.sortContent }, new { @class = "btn btn-primary" })
+    </div>
+
+    <br />
+    <br />
+
+    @foreach (var item in Model)
+    {
+        posty p = item;
+
+        DateTime data = p.getDate(item.data_utworzenia);
+        <table class="table" border="1">
+            <tr><td><b>Dodał:</b> @User.Identity.Name </td><td style="text-align: right;"><b>Dodano:</b> @data</td></tr>
+            <tr>
+                <td colspan="2">
+                    <b>Treść posta:</b>  @Html.DisplayFor(modelItem => item.tresc)
+                    @if (1 == 1)//jesli uzytkownik zalogowany=uzytkownik ktory utworzyl post
+                    {
+                        <div style="text-align: right;">
+                            @Html.ActionLink("Edytuj", "Edit", new { id = item.id }, new { @class = "btn btn-success" })
+                            @Html.ActionLink("Usuń", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
+                        </div>
+                    }
+                </td>
+            </tr>
+        </table>
+    }
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">Witaj na Portalu!</h1>
+        <p><a href="/Identity/Account/Login">Zaloguj się</a> lub jeśli nie masz jeszcze konta <a href="/Identity/Account/Register">zarejestruj się</a>!</p>
+    </div>
+
+}
