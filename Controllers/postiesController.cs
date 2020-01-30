@@ -44,8 +44,8 @@ namespace WebApplication19.Controllers
                 default:
                     posts = posts.OrderByDescending(p => p.data_utworzenia); break;
             }
-
-
+            
+            ViewBag.currentUser = _context.uzytkownicies.FirstOrDefault(x => (x.login == User.Identity.Name));
             return View(posts.ToList());
         }
 
@@ -83,12 +83,10 @@ namespace WebApplication19.Controllers
             if (ModelState.IsValid)
             {
                 posty.typ = 0; //post publiczny
-                //posty.id_uzytkownika =  TODO
-                //posty.id_uzytkownika = User.
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                posty.id_uzytkownika = userId;
                 posty.data_utworzenia = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
                 posty.status_komentarzy = 1; //wlaczone
-                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                posty.id_uzytkownika = userId.ToString();
                 _context.Add(posty);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -128,6 +126,7 @@ namespace WebApplication19.Controllers
             {
                 try
                 {
+                    posty.data_utworzenia = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
                     _context.Update(posty);
                     await _context.SaveChangesAsync();
                 }

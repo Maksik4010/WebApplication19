@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@model IEnumerable<WebApplication19.Models.grupy_dyskusyjne>
+@{
+    ViewData["Title"] = "Portal - Grupy";
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <h1>Grupy dyskusyjne</h1>
+
+    <div style="float:left;"><a asp-controller="groups" asp-action="Create" class="btn btn-primary">Utwórz grupę</a></div>
+    <br />
+    <br />
+
+    @foreach (var item in Model)
+    {
+        grupy_dyskusyjne g = item;
+
+        DateTime data = g.getDate(item.data_zalozenia);
+
+        int liczba = 0;
+        if (item.czlonkowie_Grups != null)
+        {
+            liczba = item.czlonkowie_Grups.Count();
+            liczba = 1;
+        }
+
+        <table class="table" border="1">
+            <tr><td width="60%"><b>Nazwa grupy:</b> @Html.DisplayFor(modelItem => item.nazwa)</td><td width="40% " style="text-align: right;"><b>Dodano:</b> @data</td></tr>
+            <tr><td colspan="2"><b>Liczba członków:</b> @liczba.ToString()</td></tr>
+        </table>
+    }
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">Witaj na Portalu!</h1>
+        <p><a href="/Identity/Account/Login">Zaloguj się</a> lub jeśli nie masz jeszcze konta <a href="/Identity/Account/Register">zarejestruj się</a>!</p>
+    </div>
+}
