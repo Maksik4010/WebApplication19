@@ -13,11 +13,7 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="id_fanpage" />
-            <div class="form-group">
-                <label asp-for="id_uzytkownicy" class="control-label"></label>
-                <input asp-for="id_uzytkownicy" class="form-control" />
-                <span asp-validation-for="id_uzytkownicy" class="text-danger"></span>
-            </div>
+          
             <div class="form-group">
                 <label asp-for="nazwa" class="control-label"></label>
                 <input asp-for="nazwa" class="form-control" />
@@ -28,16 +24,7 @@
                 <input asp-for="kategoria" class="form-control" />
                 <span asp-validation-for="kategoria" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="data_zalozenia" class="control-label"></label>
-                <input asp-for="data_zalozenia" class="form-control" />
-                <span asp-validation-for="data_zalozenia" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="liczba_polubien" class="control-label"></label>
-                <input asp-for="liczba_polubien" class="form-control" />
-                <span asp-validation-for="liczba_polubien" class="text-danger"></span>
-            </div>
+           
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
