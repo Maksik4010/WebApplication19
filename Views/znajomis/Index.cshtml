@@ -1,0 +1,47 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@model IEnumerable<WebApplication19.Models.znajomi>
+
+@{
+    ViewData["Title"] = "Znajomi";
+}
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <h1>Znajomi</h1>
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Dodaj Znajomego</a>
+    </p>
+    @foreach (var item in Model)
+    {
+        @if (item.Id_uzytkownicy == ViewBag.uzytkownik)
+        {
+            znajomi p = item;
+
+            DateTime data = p.getDate(item.poczatek_znajomosci);
+            <table class="table" border="1">
+                <tr><td> </td><td style="text-align: right;"><b>Dodano:</b> @data</td></tr>
+                <tr>
+                    <td colspan="2">
+
+
+                        <div style="text-align: right;">
+                            @Html.ActionLink("Usuń znajmego", "Delete", new { id = item.Id_uzytkownicy }, new { @class = "btn btn-danger" })
+                        </div>
+
+                    </td>
+                </tr>
+            </table>
+        }
+    }
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">Witaj na Portalu!</h1>
+        <p><a href="/Identity/Account/Login">Zaloguj się</a> lub jeśli nie masz jeszcze konta <a href="/Identity/Account/Register">zarejestruj się</a>!</p>
+    </div>
+
+}

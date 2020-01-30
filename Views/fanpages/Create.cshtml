@@ -1,0 +1,50 @@
+﻿@model WebApplication19.Models.fanpage
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>fanpage</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="id_uzytkownicy" class="control-label"></label>
+                <input asp-for="id_uzytkownicy" class="form-control" />
+                <span asp-validation-for="id_uzytkownicy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="nazwa" class="control-label"></label>
+                <input asp-for="nazwa" class="form-control" />
+                <span asp-validation-for="nazwa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="kategoria" class="control-label"></label>
+                <input asp-for="kategoria" class="form-control" />
+                <span asp-validation-for="kategoria" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="data_zalozenia" class="control-label"></label>
+                <input asp-for="data_zalozenia" class="form-control" />
+                <span asp-validation-for="data_zalozenia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="liczba_polubien" class="control-label"></label>
+                <input asp-for="liczba_polubien" class="form-control" />
+                <span asp-validation-for="liczba_polubien" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
