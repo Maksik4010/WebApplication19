@@ -27,6 +27,7 @@ namespace WebApplication19.Controllers
         public async Task<IActionResult> Index(string searchString, string sortOrder)
         {
             var userId = _userManager.GetUserId(HttpContext.User);
+            ViewBag.uzytkownik = userId;
             ICollection<uzytkownicy> uzyt= _context.uzytkownicies.Where(x => (x.id == userId)).ToList();
            // ViewBag.uzyt = _context.uzytkownicies.Find.im
             

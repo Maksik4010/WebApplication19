@@ -1,59 +1,66 @@
-﻿@model IEnumerable<WebApplication19.Models.wiadomosci>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@model IEnumerable<WebApplication19.Models.wiadomosci>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Portal - Strona główna";
 }
 
-<h1>Index</h1>
+@if (SignInManager.IsSignedIn(User))
+{
+    <h1>Wiadomości</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id_konwersacji)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.id_uzytkownicy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.tresc)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.data_utworzenia)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.czy_usunieta)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id_konwersacji)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.id_uzytkownicy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tresc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.data_utworzenia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.czy_usunieta)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id_wiadomosci">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id_wiadomosci">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id_wiadomosci">Delete</a>
-            </td>
-        </tr>
+    <div style="float:left;"><a asp-controller="wiadomoscis" asp-action="Create" class="btn btn-success">Utwórz wiadomość</a></div>
+    <div style="float:right;">
+        @*@using (Html.BeginForm())
+            {
+                @Html.TextBox("searchString")
+                <input type="submit" class="btn btn-primary" value="Szukaj" />
+            }*@
+    </div>
+    @*<br />
+        <br />
+        <div style="clear: left;">
+            @Html.Raw("Sortuj wg: ")
+            @Html.ActionLink("Imię", "Index", new { sortOrder = ViewBag.sortName }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Nazwisko", "Index", new { sortOrder = ViewBag.sortSurname }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Data utworzenia", "Index", new { sortOrder = ViewBag.sortDate }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Treść posta", "Index", new { sortOrder = ViewBag.sortContent }, new { @class = "btn btn-primary" })
+        </div>
+
+        <br />
+        <br />*@
+
+    @foreach (var item in Model)
+    {
+        @if (item.id_uzytkownicy == ViewBag.uzytkownik)
+        {
+            wiadomosci p = item;
+
+            DateTime data = p.getDate(item.data_utworzenia);
+        <table class="table" border="1">
+            <tr><td><b>Dodał:</b> @ViewBag.uzyt </td><td style="text-align: right;"><b>Dodano:</b> @data</td></tr>
+            <tr>
+                <td colspan="2">
+                    <b>Treść wiadomości:</b>  @Html.DisplayFor(modelItem => item.tresc)
+                    
+                    <div style="text-align: right;">
+                        @Html.ActionLink("Edytuj", "Edit", new { id = item.Id_wiadomosci }, new { @class = "btn btn-success" })
+                        @Html.ActionLink("Usuń", "Delete", new { id = item.Id_wiadomosci }, new { @class = "btn btn-danger" })
+                    </div>
+                    
+                </td>
+            </tr>
+        </table>
+            }
+        }
 }
-    </tbody>
-</table>
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">Witaj na Portalu!</h1>
+        <p><a href="/Identity/Account/Login">Zaloguj się</a> lub jeśli nie masz jeszcze konta <a href="/Identity/Account/Register">zarejestruj się</a>!</p>
+    </div>
+
+}
